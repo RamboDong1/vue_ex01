@@ -12,13 +12,13 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'login',
-      component: Login
+      name: 'home',
+      component: Home
     },
     {
-      path: '/home',
-      name: 'home',
-      component: Home,
+      path: '/login',
+      name: 'login',
+      component: Login,
       // 配置home的子路由
       children:[
         {
