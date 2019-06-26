@@ -1,12 +1,10 @@
 <template>
   <el-row type="flex" justify="center">
 <!--    登录页面-->
+    <!--给两个表单分别加key值,避免第二个表单验证规则不生效-->
     <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm" key="login" v-if="isLogin">
       <el-form-item label="用户名" prop="name">
-        <el-input v-model="ruleForm.name" autocomplete="off"></el-input>
-      </el-form-item>
-      <el-form-item label="用户名" prop="name">
-        <el-input v-model.number="ruleForm.age"></el-input>
+        <el-input v-model="ruleForm.name"></el-input>
       </el-form-item>
       <el-form-item label="密码" prop="pass">
         <el-input type="password" v-model="ruleForm.pass" autocomplete="off"></el-input>
@@ -19,7 +17,7 @@
 <!--    注册页面-->
     <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm" key="reg" v-else>
       <el-form-item label="用户名" prop="name">
-        <el-input v-model="ruleForm.name" autocomplete="off"></el-input>
+        <el-input v-model="ruleForm.name"></el-input>
       </el-form-item>
       <el-form-item label="密码" prop="pass">
         <el-input type="password" v-model="ruleForm.pass" autocomplete="off"></el-input>
@@ -40,9 +38,9 @@
   export default {
     name: 'Login',
     data() {
-      var validateName = (rule, value, callback) => {
-        if (value === '') {
-          callback(new Error('请输入用户名'));
+      var checkName = (rule, value, callback) => {
+        if (!value) {
+          return callback(new Error('用户名不能为空'));
         } else {
           callback();
         }
@@ -77,7 +75,7 @@
         /*  trigger: ‘blur’ 表示“当失去焦点时（光标不显示的时候），触发此提示”
            此处应该是有一个校验，若失去焦点，则触发trigger进行校验，若校验不成功，则进行提示*/
           name: [
-            { validator: validateName, trigger: 'blur' }
+            { validator: checkName, trigger: 'blur' }
           ],
           pass: [
             { validator: validatePass, trigger: 'blur' }
@@ -99,6 +97,7 @@
         this.$refs[formName].validate((valid) => {
           if (valid) {
             alert('submit!');
+
           } else {
             console.log('error submit!!');
             return false;
