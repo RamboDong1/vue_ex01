@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Login from './views/Login.vue'
 import Home from './views/Home.vue'
 import UserLists from './views/UserLists'
+import Reg from './views/Reg'
 
 Vue.use(Router)
 
@@ -14,6 +15,11 @@ export default new Router({
       path: '/',
       name: 'login',
       component: Login
+    },
+    {
+      path: '/reg',
+      name: '/reg',
+      component: Reg
     },
     {
       path: '/home',
